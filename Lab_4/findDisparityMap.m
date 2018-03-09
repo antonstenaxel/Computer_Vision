@@ -16,7 +16,7 @@ for row = offset+1:nRows - offset
   panel = I2(row-offset:row+offset,:);
   if(mod(row,10) == 0 )
     tnew = toc; 
-    fprintf("At row %d of %d \nEstimated time left: %.2f mins \n",row,nRows,(tnew-told)/10*(nRows-row)/60);
+    fprintf("%.2f\% completed \nEstimated time left: %.2f mins \n",row/(nRows-offset)*100,(tnew-told)/10*(nRows-row)/60);
     told =tnew;
   end
   
@@ -30,5 +30,6 @@ for row = offset+1:nRows - offset
     
   end
 end
+fprintf("Complete \n")
 
 end
