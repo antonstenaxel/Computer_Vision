@@ -9,13 +9,17 @@ D = zeros(nRows,nCols);
 offset = floor(windowSize/2);
 tic
 %For each pixel
-told = toc
+told = toc;
+
 for row = offset+1:nRows - offset
   
   panel = I2(row-offset:row+offset,:);
-  tnew = toc; 
-  fprintf("At row %d of %d \n, estimated time: %.2f mins \n",row,nRows,(tnew-told)*(nRows-row)/60);
-  told =tnew;
+  if(mod(row,10) == 0 )
+    tnew = toc; 
+    fprintf("At row %d of %d \nEstimated time left: %.2f mins \n",row,nRows,(tnew-told)/10*(nRows-row)/60);
+    told =tnew;
+  end
+  
   for col = offset+1:nCols - offset
     
     window = I1(row-offset:row+offset,col-offset:col+offset);
