@@ -1,4 +1,5 @@
-function D = findDisparityMap(I1, I2)
+function D = findDisparityMap(I1, I2,windowSize)
+
 
 
 
