@@ -3,8 +3,8 @@ function d = findDisparity(window, panel,column)
 nCols = size(panel,2);
 offset = floor(size(window,1)/2);
 
-index = -1; 
-diffMin = inf; 
+index = -1;
+diffMin = inf;
 for col_2 = offset+1: nCols-offset
   
   testWindow = panel(:,col_2-offset:col_2+offset);
@@ -18,6 +18,13 @@ for col_2 = offset+1: nCols-offset
   
 end
 
-d = column - index; 
+d = column - index;
+
+if(d< -30)
+  d=-30;
+elseif(d > 30)
+  d=30;
+end
+
 
 end
