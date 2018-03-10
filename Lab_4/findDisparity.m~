@@ -6,7 +6,7 @@ offset = floor(size(window,1)/2);
 index = -1;
 diffMin = inf;
 
-for col_2 = offset+1:nCols-offset
+for col_2 = column-offset-range+1:column+offset+range
   
   testWindow = panel(:,col_2-offset:col_2+offset);
   %difference = sum(sum((window - testWindow).^2));
