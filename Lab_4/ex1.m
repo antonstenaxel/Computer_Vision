@@ -8,7 +8,6 @@ imshow(im1)
 subplot(2,2,2)
 imshow(im2)
 
-
 g = ginput(100)
 
 img1Points = g(1:2:end,:);
