@@ -1,9 +1,10 @@
-I1 = rgb2gray(imread('Images/tsukuba1.png'));
-I2 = rgb2gray(imread('Images/tsukuba2.png'));
+I1 = rgb2gray(imread('Images/venus/im2.ppm'));
+I2 = rgb2gray(imread('Images/venus/im6.ppm'));
+
 %%
 
 windowSize=[15,15]; %[rows,columns]
-disparityRange = [-15,5]; 
+disparityRange = [-20,20]; 
 
 
 disparityMap = findDisparityMap(I1,I2,windowSize,disparityRange); 
