@@ -1,37 +1,39 @@
-function D = findDisparityMap(I1, I2,windowSize,range)
-%Windowsize have to be uneven
+function disparityMap = findDisparityMap(I1,I2,windowSize,disparityRange)
+fprintf("Started\n")
 
 nRows = size(I1,1);
 nCols = size(I1,2);
 
+disparityMap = zeros(nRows,nCols);
+
 windowOffset = floor(windowSize/2);
-panelsize = windowSize + 2*range; 
 
-D = zeros(nRows,nCols);
-tic
-%For each pixel
-told = toc;
+panelOffsetLeft = windowOffset(1) - disparityRange(1); 
+panelOffsetRight = windowOffset(1) + disparityRange(2); 
 
-for row = windowOffset+1:nRows - windowOffset
-  if(mod(row,10) == 0 )
-    tnew = toc; 
-    fprintf("%.2f  completed \nEstimated time left: %.2f mins \n",row/(nRows)*100,(tnew-told)/10*(nRows-row)/60);
-    told =tnew;
-  end
-  
-  for col = floor(panelsize/2)+1:nCols - floor(panelsize/2)
-    panel = I2(row-windowOffset:row+windowOffset,...
-               col-floor(panelsize/2):col+floor(panelsize/2));
-             
-    window = I1(row-windowOffset:row+windowOffset,...
-                col-windowOffset:col+windowOffset);
+
+for row = windowOffset(2)+1 : nRows - windowOffset(2)   
+  if(mod(row,58)==0);printStatus(row,nRows);end
+  for col = panelOffsetLeft+1 : nCols - panelOffsetRight
     
-    disparity = findDisparity(window, panel,col);
+    currentRows = row-windowOffset(2) : row+windowOffset(2);
+    windowCols = col-windowOffset(1) : col+windowOffset(1);
+    panelCols = col-panelOffsetLeft : col+panelOffsetRight;
     
-    D(row,col) = disparity; 
+    window = I1(currentRows,windowCols);
+    panel = I2(currentRows,panelCols);
+   
+    disparity = findDisparity(window, panel);
+     
+    disparityMap(row,col) = disparity; 
     
   end
 end
 fprintf("Complete \n")
 
+  function printStatus(currentRow,nRows)
+    fprintf("%.0f%% completed \n",currentRow/(nRows)*100);
+  end
+
 end
+
