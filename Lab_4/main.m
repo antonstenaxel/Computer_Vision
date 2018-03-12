@@ -1,11 +1,18 @@
-I1 = rgb2gray(imread('Images/tsukuba1.png'));
-I2 = rgb2gray(imread('Images/tsukuba2.png'));
-windowSize=5;
-range = 30; 
+I1 = rgb2gray(imread('Images/venus/im2.ppm'));
+I2 = rgb2gray(imread('Images/venus/im6.ppm'));
 
-
-disparityMap = findDisparityMap(I1,I2,windowSize,range); 
 %%
+
+windowSize=[15,15]; %[rows,columns]
+disparityRange = [-20,20]; 
+
+
+disparityMap = findDisparityMap(I1,I2,windowSize,disparityRange); 
+
+imshow(disparityMap,disparityRange)
+
+%%
+
 subplot(1,2,1)
 imshow(abs(disparityMap)./max(max(abs(disparityMap)))); 
 subplot(1,2,2)
